@@ -1,15 +1,15 @@
 import { JobPosition } from "./JobPosition";
-import { useSelector, useDispatch } from "react-redux";
-import { selectVisiblePositions } from "../store/positions/positions_selector";
-import { addFilter } from "../store/filters/filters_action";
-import { selectFilters } from "../store/filters/filters_selector";
+import {  useDispatch } from "react-redux";
+import { addFilter } from "../filter/filter-slice";
+import { usePositions } from "./usePositions";
+import { useFetchPositions } from "./useFetchPositions";
+import React from "react";
 
 const JobList = () => {
+  const positions = usePositions();
+  useFetchPositions();
   const dispatch = useDispatch();
-  const filter = useSelector(selectFilters);
-  const positions = useSelector((state) =>
-    selectVisiblePositions(state, filter)
-  );
+  
 
   const handleAddFilter = (filter) => {
     dispatch(addFilter(filter));
